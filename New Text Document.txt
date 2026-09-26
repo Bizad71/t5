@@ -1,0 +1,75 @@
+
+
+### بخش اصلی Help Desk
+
+1. دستگاه‌های موبایل (Mobile Devices)
+2. شبکه (Networking)
+3. سخت‌افزار (Hardware)
+4. مجازی‌سازی و رایانش ابری (Virtualization and Cloud Computing)
+5. عیب‌یابی سخت‌افزار و شبکه (Hardware and Network Troubleshooting)
+6. سیستم‌عامل‌ها (Operating Systems)
+7. امنیت (Security)
+8. عیب‌یابی نرم‌افزار (Software Troubleshooting)
+9. رویه‌های عملیاتی (Operational Procedures) 
+
+### بخش Network
+
+10. مفاهیم شبکه (Network Concepts)
+11. توپولوژی شبکه (Network Topology)
+12. سخت‌افزار شبکه (Network Hardware)
+13. مدل OSI
+14. TCP/IP
+15. دستورات و ابزارهای شبکه (Network Commands and Tools)
+16. مفاهیم Firewall 
+
+### Windows Client
+
+17. مقدمه مجازی‌سازی در VMware Workstation
+18. نسخه‌های Windows
+19. نصب، ارتقا و مهاجرت Windows
+20. User Profiles
+21. Users and Groups
+22. UAC
+23. Windows Firewall
+24. Registry و Group Policy (مقدماتی)
+25. User Rights Assignment و Permission
+26. Share Permission
+27. Device Management
+28. Devices and Printers؛ نصب و عیب‌یابی
+29. Image و Backup ویندوز
+30. Event Viewer
+31. Advanced Boot Options
+32. Encrypting File System (EFS)
+33. BitLocker
+34. Certificate Manager
+35. Task Scheduler
+36. Disk Management
+37. مفاهیم ADSL Modem
+38. عیب‌یابی مشکلات Windows 
+
+### Windows Server
+
+39. مفاهیم Domain و Workgroup
+40. Active Directory Users and Computers (DSA مقدماتی)
+41. Group Policy Management Console (GPMC)
+42. DHCP (مقدماتی)
+43. DNS (مقدماتی) 
+
+### WDS
+
+44. نصب Windows از طریق شبکه؛ مبانی، معماری و پیش‌نیازها
+45. نصب، پیکربندی اولیه و مدیریت Imageها
+46. شخصی‌سازی، درایورها و Automation 
+
+### File Server و Storage
+
+47. مدیریت دسترسی و تفاوت Permissionها
+48. FSRM
+49. DFS
+50. Shadow Copies (VSS)
+51. Access-Based Enumeration (ABE)
+52. File Screening Management 
+
+**در مجموع: ۵۲ سرفصل.**
+
+ما الان روی **سرفصل ۱: دستگاه‌های موبایل** هستیم.
