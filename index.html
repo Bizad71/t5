@@ -1,206 +1,427 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>جزوه Help Desk</title>
+    <title>جزوه Help Desk</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-    }
+    <style>
 
-    html,
-    body {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        font-family: Tahoma, Arial, sans-serif;
-        background: #111;
-        color: #fff;
-    }
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-    body {
-        overflow: hidden;
-    }
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Tahoma, Arial, sans-serif;
+            background: #111;
+            color: #fff;
+        }
 
-    .app {
-        display: flex;
-        width: 100%;
-        height: 100vh;
-        flex-direction: row;
-    }
+        body {
+            overflow: hidden;
+        }
 
-    /* =========================
-       SIDEBAR
-       ========================= */
 
-    .sidebar {
-        width: 340px;
-        min-width: 340px;
-        height: 100vh;
-        background: #181818;
-        border-left: 1px solid #333;
-        overflow-y: auto;
-        padding: 18px 12px;
-    }
-
-    .sidebar-title {
-        font-size: 22px;
-        font-weight: bold;
-        text-align: center;
-        padding: 12px 5px 20px;
-        color: #fff;
-        border-bottom: 1px solid #333;
-        margin-bottom: 12px;
-    }
-
-    .topic {
-        width: 100%;
-        border: 1px solid #333;
-        background: #222;
-        color: #eee;
-        padding: 13px 12px;
-        margin-bottom: 8px;
-        border-radius: 8px;
-        cursor: pointer;
-        text-align: right;
-        font-size: 14px;
-        line-height: 1.8;
-        transition: 0.2s;
-    }
-
-    .topic:hover {
-        background: #2d2d2d;
-        border-color: #666;
-    }
-
-    .topic.active {
-        background: #333;
-        border-color: #fff;
-        color: #fff;
-    }
-
-    .topic-number {
-        display: inline-block;
-        min-width: 30px;
-        font-weight: bold;
-        direction: ltr;
-        text-align: center;
-    }
-
-    /* =========================
-       CONTENT
-       ========================= */
-
-    .content {
-        flex: 1;
-        height: 100vh;
-        background: #e9e9e9;
-        position: relative;
-    }
-
-    .viewer-header {
-        height: 62px;
-        background: #222;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        border-bottom: 1px solid #333;
-    }
-
-    .viewer-title {
-        font-size: 17px;
-        font-weight: bold;
-    }
-
-    .viewer-file {
-        font-size: 12px;
-        color: #aaa;
-        direction: ltr;
-    }
-
-    .document-area {
-        width: 100%;
-        height: calc(100vh - 62px);
-        position: relative;
-        background: #fff;
-    }
-
-    #wordViewer {
-        width: 100%;
-        height: 100%;
-        border: 0;
-        background: #fff;
-    }
-
-    .welcome {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: #555;
-        padding: 30px;
-        font-size: 18px;
-        line-height: 2;
-    }
-
-    /* =========================
-       MOBILE
-       ========================= */
-
-    @media (max-width: 800px) {
+        /* =========================================
+           کل برنامه
+           ========================================= */
 
         .app {
-            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            flex-direction: row;
         }
+
+
+        /* =========================================
+           منوی سرفصل‌ها
+           ========================================= */
 
         .sidebar {
-            width: 100%;
-            min-width: 100%;
-            height: 42vh;
-            border-left: 0;
-            border-bottom: 1px solid #333;
+            width: 330px;
+            min-width: 330px;
+            height: 100vh;
+            background: #181818;
+            border-left: 1px solid #333;
+            overflow-y: auto;
+            padding: 15px;
+            z-index: 100;
         }
 
-        .content {
-            width: 100%;
-            height: 58vh;
-        }
-
-        .document-area {
-            height: calc(58vh - 62px);
-        }
-
-        .topic {
-            font-size: 13px;
-            padding: 10px;
+        .sidebar-header {
+            position: sticky;
+            top: 0;
+            background: #181818;
+            padding-bottom: 12px;
+            z-index: 10;
         }
 
         .sidebar-title {
-            font-size: 19px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px 5px 15px;
         }
-    }
-</style>
+
+        .topic {
+            width: 100%;
+            border: 1px solid #333;
+            background: #222;
+            color: #eee;
+            padding: 12px;
+            margin-bottom: 7px;
+            border-radius: 9px;
+            cursor: pointer;
+            text-align: right;
+            font-size: 13px;
+            line-height: 1.8;
+            transition: 0.2s;
+        }
+
+        .topic:hover {
+            background: #2d2d2d;
+        }
+
+        .topic.active {
+            background: #333;
+            border-color: #fff;
+        }
+
+        .topic-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 28px;
+            height: 28px;
+
+            margin-left: 7px;
+
+            background: #111;
+            border-radius: 6px;
+
+            font-weight: bold;
+            direction: ltr;
+        }
+
+
+        /* =========================================
+           بخش اصلی
+           ========================================= */
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            height: 100vh;
+            background: #eee;
+            position: relative;
+        }
+
+
+        /* =========================================
+           Header
+           ========================================= */
+
+        .viewer-header {
+            width: 100%;
+            height: 60px;
+
+            background: #202020;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 18px;
+
+            border-bottom: 1px solid #333;
+        }
+
+        .viewer-title {
+            font-size: 16px;
+            font-weight: bold;
+
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .viewer-file {
+            font-size: 11px;
+            color: #999;
+
+            direction: ltr;
+            margin-right: 15px;
+        }
+
+
+        /* =========================================
+           دکمه منوی موبایل
+           ========================================= */
+
+        .menu-button {
+            display: none;
+
+            border: 1px solid #444;
+            background: #292929;
+            color: #fff;
+
+            border-radius: 8px;
+
+            padding: 8px 12px;
+
+            font-family: inherit;
+            font-size: 13px;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           Document
+           ========================================= */
+
+        .document-area {
+            width: 100%;
+            height: calc(100vh - 60px);
+
+            background: #fff;
+
+            position: relative;
+        }
+
+        #wordViewer {
+            width: 100%;
+            height: 100%;
+
+            border: 0;
+
+            background: #fff;
+        }
+
+        .welcome {
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+
+            color: #555;
+
+            padding: 30px;
+
+            font-size: 17px;
+            line-height: 2;
+        }
+
+
+        /* =========================================
+           لایه تاریک پشت منوی موبایل
+           ========================================= */
+
+        .overlay {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.55);
+
+            z-index: 90;
+        }
+
+
+        /* =========================================
+           موبایل
+           ========================================= */
+
+        @media (max-width: 800px) {
+
+            body {
+                overflow: hidden;
+            }
+
+            .app {
+                display: block;
+                width: 100%;
+                height: 100vh;
+            }
+
+
+            /* -------------------------------
+               Sidebar موبایل
+               ------------------------------- */
+
+            .sidebar {
+                position: fixed;
+
+                top: 0;
+                right: 0;
+
+                width: 88%;
+                max-width: 360px;
+
+                height: 100vh;
+
+                transform: translateX(105%);
+
+                transition: transform 0.25s ease;
+
+                border-left: 1px solid #333;
+
+                padding: 12px;
+
+                z-index: 100;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+
+            /* -------------------------------
+               عنوان منو
+               ------------------------------- */
+
+            .sidebar-title {
+                font-size: 18px;
+                padding: 8px 5px 14px;
+            }
+
+
+            /* -------------------------------
+               دکمه‌ها
+               ------------------------------- */
+
+            .topic {
+                padding: 11px;
+
+                margin-bottom: 7px;
+
+                font-size: 13px;
+
+                min-height: 48px;
+            }
+
+
+            /* -------------------------------
+               Content
+               ------------------------------- */
+
+            .content {
+                width: 100%;
+                height: 100vh;
+            }
+
+
+            /* -------------------------------
+               Header موبایل
+               ------------------------------- */
+
+            .viewer-header {
+                height: 58px;
+
+                padding: 0 10px;
+
+                gap: 8px;
+            }
+
+            .viewer-title {
+                flex: 1;
+
+                font-size: 13px;
+
+                text-align: right;
+            }
+
+            .viewer-file {
+                display: none;
+            }
+
+            .menu-button {
+                display: block;
+                flex-shrink: 0;
+            }
+
+
+            /* -------------------------------
+               Document
+               ------------------------------- */
+
+            .document-area {
+                height: calc(100vh - 58px);
+            }
+
+
+            /* -------------------------------
+               Overlay
+               ------------------------------- */
+
+            .overlay.active {
+                display: block;
+            }
+
+        }
+
+
+        /* =========================================
+           موبایل خیلی کوچک
+           ========================================= */
+
+        @media (max-width: 380px) {
+
+            .sidebar {
+                width: 92%;
+            }
+
+            .viewer-title {
+                font-size: 12px;
+            }
+
+            .menu-button {
+                padding: 7px 10px;
+                font-size: 12px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
+
 <div class="app">
 
-    <!-- =========================
-         LEFT SIDEBAR
-         ========================= -->
 
-    <aside class="sidebar">
+    <!-- =========================================
+         منوی سرفصل‌ها
+         ========================================= -->
 
-        <div class="sidebar-title">
-            سرفصل‌های Help Desk
+    <aside class="sidebar" id="sidebar">
+
+        <div class="sidebar-header">
+
+            <div class="sidebar-title">
+                سرفصل‌های Help Desk
+            </div>
+
         </div>
 
         <div id="topics"></div>
@@ -208,29 +429,68 @@
     </aside>
 
 
-    <!-- =========================
-         RIGHT CONTENT
-         ========================= -->
+    <!-- =========================================
+         لایه پشت منو
+         ========================================= -->
+
+    <div class="overlay" id="overlay"></div>
+
+
+    <!-- =========================================
+         محتوای اصلی
+         ========================================= -->
 
     <main class="content">
 
-        <div class="viewer-header">
 
-            <div class="viewer-title" id="viewerTitle">
+        <!-- Header -->
+
+        <header class="viewer-header">
+
+            <button
+                class="menu-button"
+                id="menuButton"
+                type="button">
+
+                سرفصل‌ها
+
+            </button>
+
+
+            <div
+                class="viewer-title"
+                id="viewerTitle">
+
                 یک سرفصل را انتخاب کنید
+
             </div>
 
-            <div class="viewer-file" id="viewerFile">
+
+            <div
+                class="viewer-file"
+                id="viewerFile">
+
                 -
+
             </div>
 
-        </div>
+        </header>
 
-        <div class="document-area">
 
-            <div class="welcome" id="welcome">
-                از قسمت سمت چپ، یکی از سرفصل‌ها را انتخاب کنید.
+        <!-- Document -->
+
+        <section class="document-area">
+
+
+            <div
+                class="welcome"
+                id="welcome">
+
+                برای شروع، از دکمه «سرفصل‌ها»
+                یکی از مباحث را انتخاب کنید.
+
             </div>
+
 
             <iframe
                 id="wordViewer"
@@ -238,7 +498,8 @@
                 allowfullscreen>
             </iframe>
 
-        </div>
+
+        </section>
 
     </main>
 
@@ -247,11 +508,10 @@
 
 <script>
 
-    /*
-    ============================================
-    سرفصل‌های دوره
-    ============================================
-    */
+
+    /* =========================================
+       سرفصل‌ها
+       ========================================= */
 
     const topics = [
 
@@ -316,137 +576,231 @@
     ];
 
 
-    /*
-    ============================================
-    ساخت منوی سمت چپ
-    ============================================
-    */
+    /* =========================================
+       عناصر
+       ========================================= */
 
-    const topicsContainer = document.getElementById("topics");
+    const topicsContainer =
+        document.getElementById("topics");
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const overlay =
+        document.getElementById("overlay");
+
+    const menuButton =
+        document.getElementById("menuButton");
+
+    const viewer =
+        document.getElementById("wordViewer");
+
+    const welcome =
+        document.getElementById("welcome");
+
+    const viewerTitle =
+        document.getElementById("viewerTitle");
+
+    const viewerFile =
+        document.getElementById("viewerFile");
+
+
+    /* =========================================
+       ساخت منوی سرفصل‌ها
+       ========================================= */
 
     topics.forEach((topic, index) => {
 
         const number = index + 1;
 
-        const button = document.createElement("button");
+        const button =
+            document.createElement("button");
 
         button.className = "topic";
 
+        button.type = "button";
+
         button.innerHTML = `
-            <span class="topic-number">${number}</span>
+            <span class="topic-number">
+                ${number}
+            </span>
             ${topic}
         `;
 
-        button.addEventListener("click", function () {
 
-            openDocument(number, topic);
+        button.addEventListener(
+            "click",
+            function () {
 
-        });
+                openDocument(
+                    number,
+                    topic,
+                    button
+                );
+
+            }
+        );
+
 
         topicsContainer.appendChild(button);
 
     });
 
 
-    /*
-    ============================================
-    باز کردن فایل Word
-    ============================================
-    */
+    /* =========================================
+       باز کردن سند
+       ========================================= */
 
-    function openDocument(number, topic) {
+    function openDocument(
+        number,
+        topic,
+        button
+    ) {
 
-        const viewer = document.getElementById("wordViewer");
-        const welcome = document.getElementById("welcome");
-
-        const title = document.getElementById("viewerTitle");
-        const fileName = document.getElementById("viewerFile");
 
         /*
-        ----------------------------------------
-        نام فایل
-        ----------------------------------------
-
-        برای مثال:
+        نام فایل:
 
         word1.docx
         word2.docx
-        word3.docx
-
-        ----------------------------------------
+        ...
+        word52.docx
         */
 
-        const fileNameValue = "word" + number + ".docx";
+        const fileName =
+            "word" + number + ".docx";
+
 
         /*
-        ----------------------------------------
-        آدرس فایل
-        ----------------------------------------
+        ساخت آدرس فایل
         */
 
-        const fileURL =
+        const baseURL =
             window.location.origin +
             window.location.pathname.substring(
                 0,
                 window.location.pathname.lastIndexOf("/") + 1
-            ) +
-            fileNameValue;
+            );
+
+
+        const fileURL =
+            baseURL + fileName;
 
 
         /*
-        ----------------------------------------
         Microsoft Office Viewer
-        ----------------------------------------
         */
 
-        const viewerURL =
+        const officeViewerURL =
             "https://view.officeapps.live.com/op/embed.aspx?src=" +
             encodeURIComponent(fileURL);
 
 
         /*
-        ----------------------------------------
-        نمایش اطلاعات
-        ----------------------------------------
+        عنوان
         */
 
-        title.textContent =
+        viewerTitle.textContent =
             number + ". " + topic;
 
-        fileName.textContent =
-            fileNameValue;
+
+        viewerFile.textContent =
+            fileName;
 
 
         /*
-        ----------------------------------------
-        نمایش Word
-        ----------------------------------------
+        نمایش فایل
         */
 
-        viewer.src = viewerURL;
+        viewer.src =
+            officeViewerURL;
 
-        welcome.style.display = "none";
 
-        viewer.style.display = "block";
+        viewer.style.display =
+            "block";
+
+
+        welcome.style.display =
+            "none";
 
 
         /*
-        ----------------------------------------
-        فعال کردن دکمه انتخاب‌شده
-        ----------------------------------------
+        فعال کردن سرفصل
         */
 
-        document.querySelectorAll(".topic").forEach(button => {
+        document
+            .querySelectorAll(".topic")
+            .forEach(item => {
 
-            button.classList.remove("active");
+                item.classList.remove("active");
 
-        });
+            });
 
-        event.currentTarget.classList.add("active");
+
+        button.classList.add("active");
+
+
+        /*
+        بستن منوی موبایل
+        */
+
+        closeMenu();
 
     }
+
+
+    /* =========================================
+       باز کردن منو
+       ========================================= */
+
+    menuButton.addEventListener(
+        "click",
+        function () {
+
+            sidebar.classList.add("open");
+
+            overlay.classList.add("active");
+
+        }
+    );
+
+
+    /* =========================================
+       بستن منو
+       ========================================= */
+
+    function closeMenu() {
+
+        sidebar.classList.remove("open");
+
+        overlay.classList.remove("active");
+
+    }
+
+
+    overlay.addEventListener(
+        "click",
+        closeMenu
+    );
+
+
+    /*
+    جلوگیری از بسته شدن اشتباهی منو
+    هنگام کلیک داخل Sidebar
+    */
+
+    sidebar.addEventListener(
+        "click",
+        function(event) {
+
+            event.stopPropagation();
+
+        }
+    );
+
 
 </script>
 
 </body>
+
 </html>
