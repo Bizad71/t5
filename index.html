@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>جزوه Help Desk</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        font-family: Tahoma, Arial, sans-serif;
+        background: #111;
+        color: #fff;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    .app {
+        display: flex;
+        width: 100%;
+        height: 100vh;
+        flex-direction: row;
+    }
+
+    /* =========================
+       SIDEBAR
+       ========================= */
+
+    .sidebar {
+        width: 340px;
+        min-width: 340px;
+        height: 100vh;
+        background: #181818;
+        border-left: 1px solid #333;
+        overflow-y: auto;
+        padding: 18px 12px;
+    }
+
+    .sidebar-title {
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        padding: 12px 5px 20px;
+        color: #fff;
+        border-bottom: 1px solid #333;
+        margin-bottom: 12px;
+    }
+
+    .topic {
+        width: 100%;
+        border: 1px solid #333;
+        background: #222;
+        color: #eee;
+        padding: 13px 12px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: right;
+        font-size: 14px;
+        line-height: 1.8;
+        transition: 0.2s;
+    }
+
+    .topic:hover {
+        background: #2d2d2d;
+        border-color: #666;
+    }
+
+    .topic.active {
+        background: #333;
+        border-color: #fff;
+        color: #fff;
+    }
+
+    .topic-number {
+        display: inline-block;
+        min-width: 30px;
+        font-weight: bold;
+        direction: ltr;
+        text-align: center;
+    }
+
+    /* =========================
+       CONTENT
+       ========================= */
+
+    .content {
+        flex: 1;
+        height: 100vh;
+        background: #e9e9e9;
+        position: relative;
+    }
+
+    .viewer-header {
+        height: 62px;
+        background: #222;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: 1px solid #333;
+    }
+
+    .viewer-title {
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .viewer-file {
+        font-size: 12px;
+        color: #aaa;
+        direction: ltr;
+    }
+
+    .document-area {
+        width: 100%;
+        height: calc(100vh - 62px);
+        position: relative;
+        background: #fff;
+    }
+
+    #wordViewer {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #fff;
+    }
+
+    .welcome {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #555;
+        padding: 30px;
+        font-size: 18px;
+        line-height: 2;
+    }
+
+    /* =========================
+       MOBILE
+       ========================= */
+
+    @media (max-width: 800px) {
+
+        .app {
+            flex-direction: column;
+        }
+
+        .sidebar {
+            width: 100%;
+            min-width: 100%;
+            height: 42vh;
+            border-left: 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .content {
+            width: 100%;
+            height: 58vh;
+        }
+
+        .document-area {
+            height: calc(58vh - 62px);
+        }
+
+        .topic {
+            font-size: 13px;
+            padding: 10px;
+        }
+
+        .sidebar-title {
+            font-size: 19px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================
+         LEFT SIDEBAR
+         ========================= -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-title">
+            سرفصل‌های Help Desk
+        </div>
+
+        <div id="topics"></div>
+
+    </aside>
+
+
+    <!-- =========================
+         RIGHT CONTENT
+         ========================= -->
+
+    <main class="content">
+
+        <div class="viewer-header">
+
+            <div class="viewer-title" id="viewerTitle">
+                یک سرفصل را انتخاب کنید
+            </div>
+
+            <div class="viewer-file" id="viewerFile">
+                -
+            </div>
+
+        </div>
+
+        <div class="document-area">
+
+            <div class="welcome" id="welcome">
+                از قسمت سمت چپ، یکی از سرفصل‌ها را انتخاب کنید.
+            </div>
+
+            <iframe
+                id="wordViewer"
+                style="display:none;"
+                allowfullscreen>
+            </iframe>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    /*
+    ============================================
+    سرفصل‌های دوره
+    ============================================
+    */
+
+    const topics = [
+
+        "دستگاه‌های موبایل (Mobile Devices)",
+        "شبکه (Networking)",
+        "سخت‌افزار (Hardware)",
+        "مجازی‌سازی و رایانش ابری (Virtualization and Cloud Computing)",
+        "عیب‌یابی سخت‌افزار و شبکه (Hardware and Network Troubleshooting)",
+        "سیستم‌عامل‌ها (Operating Systems)",
+        "امنیت (Security)",
+        "عیب‌یابی نرم‌افزار (Software Troubleshooting)",
+        "رویه‌های عملیاتی (Operational Procedures)",
+
+        "مفاهیم شبکه (Network Concepts)",
+        "توپولوژی شبکه (Network Topology)",
+        "سخت‌افزار شبکه (Network Hardware)",
+        "مدل OSI",
+        "TCP/IP",
+        "دستورات و ابزارهای شبکه (Network Commands and Tools)",
+        "مفاهیم Firewall",
+
+        "مقدمه مجازی‌سازی در VMware Workstation",
+        "نسخه‌های Windows",
+        "نصب، ارتقا و مهاجرت Windows",
+        "User Profiles",
+        "Users and Groups",
+        "UAC",
+        "Windows Firewall",
+        "Registry و Group Policy (مقدماتی)",
+        "User Rights Assignment و Permission",
+        "Share Permission",
+        "Device Management",
+        "Devices and Printers؛ نصب و عیب‌یابی",
+        "Image و Backup ویندوز",
+        "Event Viewer",
+        "Advanced Boot Options",
+        "Encrypting File System (EFS)",
+        "BitLocker",
+        "Certificate Manager",
+        "Task Scheduler",
+        "Disk Management",
+        "مفاهیم ADSL Modem",
+        "عیب‌یابی مشکلات Windows",
+
+        "مفاهیم Domain و Workgroup",
+        "Active Directory Users and Computers (DSA مقدماتی)",
+        "Group Policy Management Console (GPMC)",
+        "DHCP (مقدماتی)",
+        "DNS (مقدماتی)",
+
+        "نصب Windows از طریق شبکه؛ مبانی، معماری و پیش‌نیازها",
+        "نصب، پیکربندی اولیه و مدیریت Imageها",
+        "شخصی‌سازی، درایورها و Automation",
+
+        "مدیریت دسترسی و تفاوت Permissionها",
+        "FSRM",
+        "DFS",
+        "Shadow Copies (VSS)",
+        "Access-Based Enumeration (ABE)",
+        "File Screening Management"
+
+    ];
+
+
+    /*
+    ============================================
+    ساخت منوی سمت چپ
+    ============================================
+    */
+
+    const topicsContainer = document.getElementById("topics");
+
+    topics.forEach((topic, index) => {
+
+        const number = index + 1;
+
+        const button = document.createElement("button");
+
+        button.className = "topic";
+
+        button.innerHTML = `
+            <span class="topic-number">${number}</span>
+            ${topic}
+        `;
+
+        button.addEventListener("click", function () {
+
+            openDocument(number, topic);
+
+        });
+
+        topicsContainer.appendChild(button);
+
+    });
+
+
+    /*
+    ============================================
+    باز کردن فایل Word
+    ============================================
+    */
+
+    function openDocument(number, topic) {
+
+        const viewer = document.getElementById("wordViewer");
+        const welcome = document.getElementById("welcome");
+
+        const title = document.getElementById("viewerTitle");
+        const fileName = document.getElementById("viewerFile");
+
+        /*
+        ----------------------------------------
+        نام فایل
+        ----------------------------------------
+
+        برای مثال:
+
+        word1.docx
+        word2.docx
+        word3.docx
+
+        ----------------------------------------
+        */
+
+        const fileNameValue = "word" + number + ".docx";
+
+        /*
+        ----------------------------------------
+        آدرس فایل
+        ----------------------------------------
+        */
+
+        const fileURL =
+            window.location.origin +
+            window.location.pathname.substring(
+                0,
+                window.location.pathname.lastIndexOf("/") + 1
+            ) +
+            fileNameValue;
+
+
+        /*
+        ----------------------------------------
+        Microsoft Office Viewer
+        ----------------------------------------
+        */
+
+        const viewerURL =
+            "https://view.officeapps.live.com/op/embed.aspx?src=" +
+            encodeURIComponent(fileURL);
+
+
+        /*
+        ----------------------------------------
+        نمایش اطلاعات
+        ----------------------------------------
+        */
+
+        title.textContent =
+            number + ". " + topic;
+
+        fileName.textContent =
+            fileNameValue;
+
+
+        /*
+        ----------------------------------------
+        نمایش Word
+        ----------------------------------------
+        */
+
+        viewer.src = viewerURL;
+
+        welcome.style.display = "none";
+
+        viewer.style.display = "block";
+
+
+        /*
+        ----------------------------------------
+        فعال کردن دکمه انتخاب‌شده
+        ----------------------------------------
+        */
+
+        document.querySelectorAll(".topic").forEach(button => {
+
+            button.classList.remove("active");
+
+        });
+
+        event.currentTarget.classList.add("active");
+
+    }
+
+</script>
+
+</body>
+</html>
